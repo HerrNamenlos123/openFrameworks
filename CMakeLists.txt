@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.24)
+set(CMAKE_PROJECT_TOP_LEVEL_INCLUDES ${CMAKE_BINARY_DIR}/conan_provider.cmake)
 project(openframeworks)
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(OF_IS_MAIN_PROJECT ON)
@@ -14,6 +16,7 @@ endif()
 # BUILD_SHARED_LIBS can be set to build a dll
 option(BUILD_EXAMPLES "Add all OpenFrameworks examples to the project" ${OF_IS_MAIN_PROJECT})
 option(BUILD_TESTS "Add all OpenFrameworks examples to the project" ${OF_IS_MAIN_PROJECT})
+option(USE_CONAN_FROM_PATH "Set this to ON to not download Conan and instead use a globally installed instance" OFF)
 
 # This defines the actual library
 add_library(openframeworks)

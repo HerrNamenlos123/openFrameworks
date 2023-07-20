@@ -39,3 +39,23 @@ function(of_copy_runtime_to_bin_dir_after_build TARGET BIN_DIR)
         add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "${lib_path}" "${BIN_DIR}/${lib_name}")
     endforeach()
 endfunction()
+
+function(of_probe_if_host_is_64bit)
+    set(options "")
+    set(oneValueArgs OUTPUT_VARIABLE)
+    set(multiValueArgs HOST_VALUES)
+
+    cmake_parse_arguments(PROBE_64BIT "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+    set(IS_64BIT FALSE)
+    foreach(ARCH IN LISTS PROBE_64BIT_HOST_VALUES)
+        if (${ARCH} MATCHES ${CMAKE_HOST_SYSTEM_PROCESSOR})
+            set(IS_64BIT TRUE)
+            break()
+        endif()
+    endforeach()
+
+    set(${PROBE_64BIT_OUTPUT_VARIABLE} ${IS_64BIT} CACHE BOOL "" FORCE)
+endfunction()
+
+include(cmake/conan.cmake)
