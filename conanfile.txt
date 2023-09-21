@@ -1,0 +1,5 @@
+[requires]
+assimp/5.2.2    # ofxAssimpModelLoader
+libusb/1.0.26   # ofxKinect
+opencv/4.5.5    # ofxOpenCv
+libxml2/2.11.4  # ofxSvg
